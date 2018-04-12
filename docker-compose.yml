@@ -12,5 +12,9 @@ services:
     environment:
         WEB_DOCUMENT_ROOT: /app/public
 
-
-
+  composer:
+    build: .
+    volumes:
+      - .:/app
+    command: composer install
+    working_dir: /app

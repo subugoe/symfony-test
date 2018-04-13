@@ -3,18 +3,17 @@ version: '2'
 services:
 
   web:
-    build: .
+    image: webdevops/php-apache:7.1
     volumes:
       - .:/app
     ports:
       - 8888:80
-      - 8777:8000
     environment:
         WEB_DOCUMENT_ROOT: /app/public
 
   composer:
-    build: .
+    image: composer:1.6
     volumes:
       - .:/app
-    command: composer install
     working_dir: /app
+    command: composer install

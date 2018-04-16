@@ -26,6 +26,9 @@ class ArticleController extends Controller
      * @Route("/news/{slug}")
      */
     public function news($slug) {
+
+        dump($slug, $this);
+
         return $this->render("article/news.html.twig", [
            "title" => $slug
         ]);

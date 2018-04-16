@@ -15,11 +15,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends Controller
 {
+    /**
+     * @Route("/")
+     */
     public function homepage() {
         return new Response("homepage");
     }
 
-    public function news() {
-        return new Response("news");
+    /**
+     * @Route("/news/{slug}")
+     */
+    public function news($slug) {
+        return new Response(sprintf("news bla: %s", $slug));
     }
 }

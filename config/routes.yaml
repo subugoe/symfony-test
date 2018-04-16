@@ -1,6 +1,3 @@
 #index:
 #    path: /
 #    controller: App\Controller\ArticleController::homepage
-news:
-    path: /news
-    controller: App\Controller\ArticleController::news

@@ -26,6 +26,8 @@ class ArticleController extends Controller
      * @Route("/news/{slug}")
      */
     public function news($slug) {
-        return new Response(sprintf("news bla: %s", $slug));
+        return $this->render("article/news.html.twig", [
+           "title" => $slug
+        ]);
     }
 }

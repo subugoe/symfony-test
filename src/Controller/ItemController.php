@@ -29,8 +29,6 @@ class ItemController extends Controller
      */
     public function lemma($id) {
 
-        dump(CustomContext::$backendGateway);
-
         $itemUsecase = new ItemUsecase();
         $item = $itemUsecase->constructItem($id);
 

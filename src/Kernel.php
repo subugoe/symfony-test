@@ -41,9 +41,7 @@ class Kernel extends BaseKernel
     private function configureCustomContext()
     {
         if (CustomContext::$backendGateway == null) {
-            CustomContext::writeLog("in custom config");
             CustomContext::$backendGateway = new SolrGateway();
-            CustomContext::writeLog(CustomContext::$backendGateway->getItemById("i1"));
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Gateway\SolrGateway;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -33,7 +34,19 @@ class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+
+        $this->configureCustomContext();
     }
+
+    private function configureCustomContext()
+    {
+        if (CustomContext::$backendGateway == null) {
+            CustomContext::writeLog("in custom config");
+            CustomContext::$backendGateway = new SolrGateway();
+            CustomContext::writeLog(CustomContext::$backendGateway->getItemById("i1"));
+        }
+    }
+
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
     {
@@ -48,6 +61,7 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
         $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes)
@@ -58,4 +72,5 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
+
 }

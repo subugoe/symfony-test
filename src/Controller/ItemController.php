@@ -9,11 +9,13 @@
 namespace App\Controller;
 
 
+use App\CustomContext;
+use App\Usecase\ItemUsecase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArticleController extends Controller
+class ItemController extends Controller
 {
     /**
      * @Route("/")
@@ -23,14 +25,17 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/news/{slug}")
+     * @Route("/lemma/{id}", name="_lemma", methods={"GET"})
      */
-    public function news($slug) {
+    public function lemma($id) {
 
-        dump($slug, $this);
+        dump(CustomContext::$backendGateway);
 
-        return $this->render("article/news.html.twig", [
-           "title" => $slug
+        $itemUsecase = new ItemUsecase();
+        $item = $itemUsecase->constructItem($id);
+
+        return $this->render("article/item.html.twig", [
+           "lemma" => $item->lemma
         ]);
     }
 }

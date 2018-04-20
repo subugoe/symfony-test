@@ -44,6 +44,9 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
+    "solarium/solarium": {
+        "version": "4.0.0-rc.1"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

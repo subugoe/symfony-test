@@ -10,6 +10,8 @@ namespace App\Gateway;
 
 
 use App\CustomContext;
+use App\Model\Item;
+use App\Model\Reference;
 use Solarium\Client;
 
 class SolrGateway implements BackendGateway
@@ -17,11 +19,11 @@ class SolrGateway implements BackendGateway
 
     private $client;
 
-    function __construct() {
+    public function __construct() {
         $config = array(
             'endpoint' => array(
                 'fwbdev' => array(
-                    'host' => '0.0.0.0',
+                    'host' => '134.76.0.0',
                     'port' => 8083,
                     'path' => '/solr/fwb',
                 )
@@ -30,16 +32,53 @@ class SolrGateway implements BackendGateway
         $this->client = new Client($config);
     }
 
-    function getItemById($id)
+    public function getItemById($id)
     {
-        $client = $this->client;
+        $query = $this->client->createSelect()->setQuery("internal_id:".$id)->setHandler("article");
+        return $this->itemFromFirstResult($query);
+    }
 
-        $query = $client->createSelect()->setQuery("internal_id:".$id);
-        $query->setHandler("article");
-        $resultset = $client->execute($query);
+    private function itemFromFirstResult($query) {
+        $resultset = $this->client->execute($query);
+        $resultDoc = $resultset->getDocuments()[0];
 
-        dump($resultset->getDocuments()[0]);
+        $item = new Item();
+        $item->lemma = $resultDoc["lemma"];
+        $item->sortKey = $resultDoc["sortkey"];
+        $item->article = $resultDoc["artikel"];
 
-        return "my-item " . $id;
+        return $item;
+    }
+
+    public function getNextReference($sortKey)
+    {
+        $query = $this->client->createSelect()
+            ->addSort('sortkey', "asc")
+            ->setQuery(sprintf('sortkey:{%s TO *]', $sortKey))
+            ->setRows(1)
+            ->setFields(['lemma', 'internal_id']);
+        return $this->referenceFromFirstResult($query);
+    }
+
+    public function getPreviousReference($sortKey)
+    {
+        $query = $this->client->createSelect()
+            ->addSort('sortkey', "desc")
+            ->setQuery(sprintf('sortkey:[* TO %s}', $sortKey))
+            ->setRows(1)
+            ->setFields(['lemma', 'internal_id']);
+        return $this->referenceFromFirstResult($query);
+    }
+
+    private function referenceFromFirstResult($query) {
+        $resultset = $this->client->execute($query);
+        $resultDoc = $resultset->getDocuments()[0];
+
+        $ref = new Reference();
+        $ref->lemma = $resultDoc["lemma"];
+        $ref->internal_id = $resultDoc["internal_id"];
+
+        return $ref;
+
     }
 }

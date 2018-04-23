@@ -17,7 +17,10 @@ class ItemUsecaseTest extends TestCase
         CustomContext::$backendGateway = new FakeGateway();
 
         $itemUsecase = new ItemUsecase();
-        $lemma = $itemUsecase->constructItem("test")->lemma;
-        $this->assertEquals("fake item test", $lemma);
+        $viewItem = $itemUsecase->constructItem("test");
+
+        $this->assertEquals("fake_lemma", $viewItem->lemma);
+        $this->assertEquals("next_fake_lemma", $viewItem->nextLemma);
+        $this->assertEquals("previous_fake_lemma", $viewItem->previousLemma);
     }
 }

@@ -30,10 +30,9 @@ class ItemController extends Controller
     public function lemma($id) {
 
         $itemUsecase = new ItemUsecase();
-        $item = $itemUsecase->constructItem($id);
 
         return $this->render("article/item.html.twig", [
-           "lemma" => $item->lemma
+           "item" => $itemUsecase->constructItem($id)
         ]);
     }
 }

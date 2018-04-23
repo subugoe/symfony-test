@@ -2,6 +2,15 @@
 
 {% block body %}
 
-<h1>{{ lemma }}</h1>
+    <div>previous: <a href="/lemma/{{ item.previousId }}">{{ item.previousLemma }}</a></div>
+    <div>next: <a href="/lemma/{{ item.nextId }}">{{ item.nextLemma }}</a></div>
+
+    <h1>{{ item.lemma }}</h1>
+
+    <div>
+    {% autoescape false %}
+        {{ item.article }}
+    {% endautoescape %}
+    </div>
 
 {% endblock %}

@@ -9,7 +9,14 @@
 namespace App\ViewModel;
 
 
-class Item
+class ViewItem
 {
     public $lemma;
+    public $article;
+
+    public $nextLemma;
+    public $nextId;
+
+    public $previousLemma;
+    public $previousId;
 }

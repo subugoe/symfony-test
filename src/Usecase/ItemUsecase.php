@@ -29,11 +29,21 @@ class ItemUsecase
         $viewItem = new ViewItem();
         $viewItem->lemma = $backendItem->lemma;
         $viewItem->article = $backendItem->article;
-        $viewItem->nextLemma = $nextReference->lemma;
-        $viewItem->nextId = $nextReference->internal_id;
-        $viewItem->previousLemma = $previousReference->lemma;
-        $viewItem->previousId = $previousReference->internal_id;
 
+        if ($nextReference->lemma == null) {
+            $viewItem->nextVisibility = "invisible";
+        } else {
+            $viewItem->nextLemma = $nextReference->lemma;
+            $viewItem->nextId = $nextReference->internal_id;
+        }
+        if ($previousReference->lemma == null) {
+            $viewItem->previousVisibility = "invisible";
+        } else {
+            $viewItem->previousLemma = $previousReference->lemma;
+            $viewItem->previousId = $previousReference->internal_id;
+        }
+
+        dump($viewItem);
         return $viewItem;
     }
 }

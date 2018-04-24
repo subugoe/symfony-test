@@ -16,7 +16,9 @@ class ViewItem
 
     public $nextLemma;
     public $nextId;
+    public $nextVisibility = "visible";
 
     public $previousLemma;
     public $previousId;
+    public $previousVisibility = "visible";
 }

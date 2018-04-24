@@ -72,11 +72,12 @@ class SolrGateway implements BackendGateway
 
     private function referenceFromFirstResult($query) {
         $resultset = $this->client->execute($query);
-        $resultDoc = $resultset->getDocuments()[0];
-
         $ref = new Reference();
-        $ref->lemma = $resultDoc["lemma"];
-        $ref->internal_id = $resultDoc["internal_id"];
+
+        foreach ($resultset->getDocuments() as $resultDoc) {
+            $ref->lemma = $resultDoc["lemma"];
+            $ref->internal_id = $resultDoc["internal_id"];
+        }
 
         return $ref;
 

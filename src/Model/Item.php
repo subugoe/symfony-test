@@ -14,4 +14,5 @@ class Item
     public $lemma;
     public $sortKey;
     public $article;
+    public $internal_id;
 }

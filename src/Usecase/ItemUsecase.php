@@ -26,7 +26,11 @@ class ItemUsecase
         if (count($backendItems) == 0) {
             throw new \Exception("ID not found: " . $itemId);
         } elseif (count($backendItems) > 1) {
-            throw new \Exception("Got more than one document for: " . $itemId);
+            $returnedIds = [];
+            foreach ($backendItems as $item) {
+                array_push($returnedIds, $item->internal_id);
+            }
+            throw new \Exception("Got more than one document: " . implode(", ", $returnedIds));
         }
         $backendItem = $backendItems[0];
 

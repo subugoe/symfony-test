@@ -37,20 +37,6 @@ class SolrGateway implements BackendGateway
         return $this->getItemsFromSolr($query);
     }
 
-    private function getItemsFromSolr($query) {
-        $resultset = $this->client->execute($query);
-        $items = [];
-
-        foreach ($resultset->getDocuments() as $resultDoc) {
-            $item = new Item();
-            $item->lemma = $resultDoc["lemma"];
-            $item->sortKey = $resultDoc["sortkey"];
-            $item->article = $resultDoc["artikel"];
-            array_push($items, $item);
-        }
-        return $items;
-    }
-
     public function getNextReference($sortKey) : array
     {
         $query = $this->client->createSelect()
@@ -69,6 +55,23 @@ class SolrGateway implements BackendGateway
             ->setRows(1)
             ->setFields(['lemma', 'internal_id']);
         return $this->getReferencesFromSolr($query);
+    }
+
+
+
+    private function getItemsFromSolr($query) {
+        $resultset = $this->client->execute($query);
+        $items = [];
+
+        foreach ($resultset->getDocuments() as $resultDoc) {
+            $item = new Item();
+            $item->lemma = $resultDoc["lemma"];
+            $item->sortKey = $resultDoc["sortkey"];
+            $item->article = $resultDoc["artikel"];
+            $item->internal_id = $resultDoc["internal_id"];
+            array_push($items, $item);
+        }
+        return $items;
     }
 
     private function getReferencesFromSolr($query) {

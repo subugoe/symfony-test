@@ -11,7 +11,7 @@ namespace App\Gateway;
 
 interface BackendGateway
 {
-    function getItemById($id);
-    function getNextReference($sortKey);
-    function getPreviousReference($sortKey);
+    function getItemById($id) : array;
+    function getNextReference($sortKey) : array;
+    function getPreviousReference($sortKey) : array;
 }

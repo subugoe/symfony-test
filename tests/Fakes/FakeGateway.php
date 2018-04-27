@@ -16,25 +16,25 @@ use App\Model\Reference;
 class FakeGateway implements BackendGateway
 {
 
-    function getItemById($id)
+    function getItemById($id) : array
     {
         $item = new Item();
         $item->lemma = "fake_lemma";
         $item->sortKey = "fake_sort_key";
-        return $item;
+        return array($item);
     }
 
-    function getNextReference($sortKey)
+    function getNextReference($sortKey) : array
     {
         $ref = new Reference();
         $ref->lemma = "next_fake_lemma";
-        return $ref;
+        return array($ref);
     }
 
-    function getPreviousReference($sortKey)
+    function getPreviousReference($sortKey) : array
     {
         $ref = new Reference();
         $ref->lemma = "previous_fake_lemma";
-        return $ref;
+        return array($ref);
     }
 }

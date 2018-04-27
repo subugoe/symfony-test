@@ -25,12 +25,16 @@ class MockCreator extends TestCase
     }
 
     public function createMockFromArray($mockFunctions) {
-        foreach ($mockFunctions as $functionName => $returns) {
-            $returnedObject = $returns['return'];
-            foreach ($returns['properties'] as $property => $value) {
-                $returnedObject->$property = $value;
+        foreach ($mockFunctions as $functionName => $returnedArraySpec) {
+            $returnedArray = [];
+            foreach ($returnedArraySpec as $returns) {
+                $returnedObject = $returns['return'];
+                foreach ($returns['properties'] as $property => $value) {
+                    $returnedObject->$property = $value;
+                }
+                array_push($returnedArray, $returnedObject);
             }
-            $this->mockGateway->method($functionName)->willReturn($returnedObject);
+            $this->mockGateway->method($functionName)->willReturn($returnedArray);
         }
 
     }

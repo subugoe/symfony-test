@@ -18,18 +18,18 @@ class ItemUsecaseTest extends TestCase
 
         $mockFunctions = [
             'getItemById' =>
-                ['return' => new Item(),
+                [['return' => new Item(),
                     'properties' => [
                         'lemma' => 'fake_lemma',
-                        'article' => "my article"]],
+                        'article' => "my article"]]],
             'getNextReference' =>
-                ['return' => new Reference(),
+                [['return' => new Reference(),
                     'properties' => [
-                        'lemma' => 'next_fake_lemma']],
+                        'lemma' => 'next_fake_lemma']]],
             'getPreviousReference' =>
-                ['return' => new Reference(),
+                [['return' => new Reference(),
                     'properties' => [
-                        'lemma' => 'previous_fake_lemma']]
+                        'lemma' => 'previous_fake_lemma']]]
         ];
 
         $mockCreator = new MockCreator();

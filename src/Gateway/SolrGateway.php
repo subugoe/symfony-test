@@ -9,7 +9,6 @@
 namespace App\Gateway;
 
 
-use App\CustomContext;
 use App\Model\Item;
 use App\Model\Reference;
 use Solarium\Client;
@@ -32,54 +31,58 @@ class SolrGateway implements BackendGateway
         $this->client = new Client($config);
     }
 
-    public function getItemById($id)
+    public function getItemById($id) : array
     {
         $query = $this->client->createSelect()->setQuery("internal_id:".$id)->setHandler("article");
-        return $this->itemFromFirstResult($query);
+        return $this->getItemsFromSolr($query);
     }
 
-    private function itemFromFirstResult($query) {
+    private function getItemsFromSolr($query) {
         $resultset = $this->client->execute($query);
-        $resultDoc = $resultset->getDocuments()[0];
+        $items = [];
 
-        $item = new Item();
-        $item->lemma = $resultDoc["lemma"];
-        $item->sortKey = $resultDoc["sortkey"];
-        $item->article = $resultDoc["artikel"];
-
-        return $item;
+        foreach ($resultset->getDocuments() as $resultDoc) {
+            $item = new Item();
+            $item->lemma = $resultDoc["lemma"];
+            $item->sortKey = $resultDoc["sortkey"];
+            $item->article = $resultDoc["artikel"];
+            array_push($items, $item);
+        }
+        return $items;
     }
 
-    public function getNextReference($sortKey)
+    public function getNextReference($sortKey) : array
     {
         $query = $this->client->createSelect()
             ->addSort('sortkey', "asc")
             ->setQuery(sprintf('sortkey:{%s TO *]', $sortKey))
             ->setRows(1)
             ->setFields(['lemma', 'internal_id']);
-        return $this->referenceFromFirstResult($query);
+        return $this->getReferencesFromSolr($query);
     }
 
-    public function getPreviousReference($sortKey)
+    public function getPreviousReference($sortKey) : array
     {
         $query = $this->client->createSelect()
             ->addSort('sortkey', "desc")
             ->setQuery(sprintf('sortkey:[* TO %s}', $sortKey))
             ->setRows(1)
             ->setFields(['lemma', 'internal_id']);
-        return $this->referenceFromFirstResult($query);
+        return $this->getReferencesFromSolr($query);
     }
 
-    private function referenceFromFirstResult($query) {
+    private function getReferencesFromSolr($query) {
         $resultset = $this->client->execute($query);
-        $ref = new Reference();
+        $refs = [];
 
         foreach ($resultset->getDocuments() as $resultDoc) {
+            $ref = new Reference();
             $ref->lemma = $resultDoc["lemma"];
             $ref->internal_id = $resultDoc["internal_id"];
+            array_push($refs, $ref);
         }
 
-        return $ref;
+        return $refs;
 
     }
 }

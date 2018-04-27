@@ -22,23 +22,43 @@ class ItemUsecase
 
     public function constructItem(string $itemId): ViewItem {
 
-        $backendItem = $this->gateway->getItemById($itemId);
-        $nextReference = $this->gateway->getNextReference($backendItem->sortKey);
-        $previousReference = $this->gateway->getPreviousReference($backendItem->sortKey);
+        $backendItems = $this->gateway->getItemById($itemId);
+        if (count($backendItems) == 0) {
+            throw new \Exception("ID not found: " . $itemId);
+        } elseif (count($backendItems) > 1) {
+            throw new \Exception("Got more than one document for: " . $itemId);
+        }
+        $backendItem = $backendItems[0];
 
+        $nextReferences = $this->gateway->getNextReference($backendItem->sortKey);
+        if (count($nextReferences) > 1) {
+            throw new \Exception("Got more than one next reference for " . $itemId);
+        }
+
+        $previousReferences = $this->gateway->getPreviousReference($backendItem->sortKey);
+        if (count($previousReferences) > 1) {
+            throw new \Exception("Got more than one previous reference for " . $itemId);
+        }
+
+        return $this->createViewItemFrom($backendItem, $nextReferences, $previousReferences);
+    }
+
+    private function createViewItemFrom($backendItem, $nextReferences, $previousReferences) {
         $viewItem = new ViewItem();
         $viewItem->lemma = $backendItem->lemma;
         $viewItem->article = $backendItem->article;
 
-        if ($nextReference->lemma == null) {
+        if (count($nextReferences) == 0) {
             $viewItem->nextVisibility = "invisible";
         } else {
+            $nextReference = $nextReferences[0];
             $viewItem->nextLemma = $nextReference->lemma;
             $viewItem->nextId = $nextReference->internal_id;
         }
-        if ($previousReference->lemma == null) {
+        if (count($previousReferences) == 0) {
             $viewItem->previousVisibility = "invisible";
         } else {
+            $previousReference = $previousReferences[0];
             $viewItem->previousLemma = $previousReference->lemma;
             $viewItem->previousId = $previousReference->internal_id;
         }

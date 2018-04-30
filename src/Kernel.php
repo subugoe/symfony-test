@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Gateway\SolrGateway;
+use App\Tests\Fakes\FakeGateway;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;

@@ -21,6 +21,8 @@ class FakeGateway implements BackendGateway
         $item = new Item();
         $item->lemma = "fake_lemma";
         $item->sortKey = "fake_sort_key";
+        $item->internal_id = "fake_lemma_id";
+        $item->article = "Empty article";
         return array($item);
     }
 
@@ -28,6 +30,7 @@ class FakeGateway implements BackendGateway
     {
         $ref = new Reference();
         $ref->lemma = "next_fake_lemma";
+        $ref->internal_id = "next_fake_id";
         return array($ref);
     }
 
@@ -35,6 +38,7 @@ class FakeGateway implements BackendGateway
     {
         $ref = new Reference();
         $ref->lemma = "previous_fake_lemma";
+        $ref->internal_id = "previous_fake_id";
         return array($ref);
     }
 }

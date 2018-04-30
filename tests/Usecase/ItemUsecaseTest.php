@@ -23,10 +23,9 @@ class ItemUsecaseTest extends TestCase
 
     public function test_exceptionWhenNoItemFound() {
 
-        $mockFunctions = [
+        $this->mockCreator->createMockFromArray( [
             'getItemById' => [[]]
-        ];
-        $this->mockCreator->createMockFromArray($mockFunctions);
+        ] );
 
         $this->expectException(Exception::class);
 
@@ -35,7 +34,7 @@ class ItemUsecaseTest extends TestCase
 
     public function test_exceptionWhenTwoItemsFound() {
 
-        $mockFunctions = [
+        $this->mockCreator->createMockFromArray( [
             'getItemById' =>
                 [
                     ['return' => new Item(),
@@ -47,8 +46,7 @@ class ItemUsecaseTest extends TestCase
                             'lemma' => 'fake_lemma2',
                             'article' => "my article2"]]
                 ]
-        ];
-        $this->mockCreator->createMockFromArray($mockFunctions);
+        ] );
 
         $this->expectException(Exception::class);
 
@@ -57,7 +55,7 @@ class ItemUsecaseTest extends TestCase
 
     public function test_happyPath() {
 
-        $mockFunctions = [
+        $this->mockCreator->createMockFromArray( [
             'getItemById' =>
                 [['return' => new Item(),
                     'properties' => [
@@ -71,8 +69,7 @@ class ItemUsecaseTest extends TestCase
                 [['return' => new Reference(),
                     'properties' => [
                         'lemma' => 'previous_fake_lemma']]]
-        ];
-        $this->mockCreator->createMockFromArray($mockFunctions);
+        ] );
 
         $viewItem = $this->itemUsecase->constructItem("id here unnecessary");
 
@@ -80,6 +77,28 @@ class ItemUsecaseTest extends TestCase
         $this->assertEquals("next_fake_lemma", $viewItem->nextLemma);
         $this->assertEquals("previous_fake_lemma", $viewItem->previousLemma);
         $this->assertEquals("my article", $viewItem->article);
+    }
+
+    public function test_nextReferenceIsInvisible() {
+
+        $this->mockCreator->createMockFromArray( [
+            'getItemById' =>
+                [['return' => new Item(),
+                    'properties' => [
+                        'lemma' => 'fake_lemma',
+                        'article' => "my article"]]],
+            'getNextReference' =>
+                [[]],
+            'getPreviousReference' =>
+                [['return' => new Reference(),
+                    'properties' => [
+                        'lemma' => 'previous_fake_lemma']]]
+        ] );
+
+        $viewItem = $this->itemUsecase->constructItem("id here unnecessary");
+
+        $this->assertEquals("invisible", $viewItem->nextVisibility);
+        $this->assertEquals("visible", $viewItem->previousVisibility);
     }
 
 }

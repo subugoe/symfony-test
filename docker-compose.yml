@@ -12,7 +12,7 @@ services:
         WEB_DOCUMENT_ROOT: /app/public
 
   composer:
-    image: composer:1.6
+    build: docker_composer
     volumes:
       - .:/app
     working_dir: /app

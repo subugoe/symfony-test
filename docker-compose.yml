@@ -11,7 +11,7 @@ services:
     environment:
         WEB_DOCUMENT_ROOT: /app/public
 
-  composer:
+  command:
     build: docker_composer
     volumes:
       - .:/app

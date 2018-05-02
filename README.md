@@ -5,9 +5,13 @@
 This project is a case study for typical web projects written in PHP using the Symfony framework.
 The main idea is to create a common architecture that is both easy to extend and easy to test.
 
+## Prerequisites
+
+Docker, docker-compose.
+
 ## Usage
 
-To try out the functionality, you have to adapt the settings in the ```SolrGateway.php``` file.
+To try out the functionality, you have to adjust the settings in the ```SolrGateway.php``` file.
 The array variable ```$config``` must point to a running Solr server containing data of the FWB project (http://fwb-online.de).
 
 Then run in the project main directory:
@@ -23,8 +27,8 @@ The 'some-id' must be a valid lemma ID. The first one is currently 'a.h1.2n'. Yo
 
 ## Testing
 
-One important issue in this project is testing with PHPUnit. All tests can be executed inside a Docker container.
-In the project main directory, run the command:
+One important topic in this project is testing with PHPUnit. All tests can be executed inside a Docker container.
+In the project main directory, run the following:
 
 ```docker-compose run command php bin/phpunit --coverage-html=/app/var/log/coverage```
 
@@ -35,13 +39,15 @@ The --coverage-... part is optional and will generate HTML files with statistics
 
 All the commands were executed inside a Docker container, like so:
 
-```docker-compose run command composer require ...```
+```docker-compose run command composer ...```
 
 The commands:
 
 ```composer create-project symfony/skeleton symfony-test```
 
 ```composer require annotations```
+
+```composer require symfony/apache-pack```
 
 ```composer require twig```
 

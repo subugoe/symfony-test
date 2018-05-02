@@ -29,7 +29,7 @@ In the project main directory, run the command:
 ```docker-compose run command php bin/phpunit --coverage-html=/app/var/log/coverage```
 
 This will execute the command ```php bin/phpunit``` inside the container named 'command'. 
-The --coverage-... part is optional and will generate HTML files with statistics on the test coverage in the <project-dir>/var/log/coverage/ directory.
+The --coverage-... part is optional and will generate HTML files with statistics on the test coverage in the project-dir/var/log/coverage/ directory.
 
 ## Used Composer commands (for future reference)
 

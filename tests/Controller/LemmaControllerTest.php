@@ -13,7 +13,7 @@ use App\CustomContext;
 use App\Tests\Fakes\FakeGateway;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class Test extends WebTestCase
+class LemmaControllerTest extends WebTestCase
 {
 
     private $client;

@@ -11,7 +11,7 @@ use App\ViewModel\ViewItem;
  * Date: 20.04.18
  * Time: 11:15
  */
-class ItemUsecase
+class LemmaUsecase
 {
 
     private $gateway;

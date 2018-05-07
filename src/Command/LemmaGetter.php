@@ -3,7 +3,7 @@ namespace App\Command;
 
 use App\CustomContext;
 use App\Gateway\SolrGateway;
-use App\Usecase\ItemUsecase;
+use App\Usecase\LemmaUsecase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,7 +15,7 @@ class LemmaGetter extends Command
     protected function configure()
     {
         $this
-            ->setName('getLemma')
+            ->setName('LemmaGetter')
             ->setDescription('Gets an FWB article.')
             ->addArgument("lemma-id");
     }
@@ -24,7 +24,7 @@ class LemmaGetter extends Command
     {
         CustomContext::$backendGateway = new SolrGateway();
 
-        $usecase = new ItemUsecase();
+        $usecase = new LemmaUsecase();
         $lemmaId = $input->getArgument("lemma-id");
         $result = $usecase->constructItem($lemmaId);
 

@@ -4,13 +4,13 @@
 namespace App\Tests\Usecase;
 
 use App\Tests\Mock\MockCreator;
-use App\Usecase\ItemUsecase;
+use App\Usecase\LemmaUsecase;
 use App\Model\Item;
 use App\Model\Reference;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
-class ItemUsecaseTest extends TestCase
+class LemmaUsecaseTest extends TestCase
 {
     private $mockCreator;
     private $itemUsecase;
@@ -18,7 +18,7 @@ class ItemUsecaseTest extends TestCase
     public function setUp()
     {
         $this->mockCreator = new MockCreator();
-        $this->itemUsecase = new ItemUsecase();
+        $this->itemUsecase = new LemmaUsecase();
     }
 
     public function test_exceptionWhenNoItemFound() {

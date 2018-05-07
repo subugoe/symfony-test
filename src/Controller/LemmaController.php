@@ -10,12 +10,12 @@ namespace App\Controller;
 
 
 use App\CustomContext;
-use App\Usecase\ItemUsecase;
+use App\Usecase\LemmaUsecase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class ItemController extends Controller
+class LemmaController extends Controller
 {
     /**
      * @Route("/")
@@ -29,9 +29,9 @@ class ItemController extends Controller
      */
     public function lemma($id) {
 
-        $itemUsecase = new ItemUsecase();
+        $itemUsecase = new LemmaUsecase();
 
-        return $this->render("article/item.html.twig", [
+        return $this->render("article/lemma.html.twig", [
            "item" => $itemUsecase->constructItem($id)
         ]);
     }

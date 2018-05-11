@@ -4,6 +4,7 @@
 
 This project is a case study for typical web projects written in PHP using the Symfony framework.
 The main idea is to create a common architecture that is both easy to extend and easy to test.
+You can read the wiki pages for more details: https://github.com/subugoe/symfony-test/wiki.
 
 ## Prerequisites
 

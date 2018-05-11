@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Usecase;
+namespace App\BusinessLogic\Usecase;
 
 use App\CustomContext;
-use App\ViewModel\ViewItem;
+use App\BusinessLogic\ViewModel\ViewItem;
 
 /**
  * Created by PhpStorm.

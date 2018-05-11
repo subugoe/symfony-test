@@ -2,8 +2,8 @@
 namespace App\Command;
 
 use App\CustomContext;
-use App\Gateway\SolrGateway;
-use App\Usecase\LemmaUsecase;
+use App\DataAccess\Gateway\SolrGateway;
+use App\BusinessLogic\Usecase\LemmaUsecase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

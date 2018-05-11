@@ -10,7 +10,7 @@ namespace App\Tests\Mock;
 
 
 use App\CustomContext;
-use App\Gateway\BackendGateway;
+use App\BusinessLogic\Gateway\BackendGateway;
 use PHPUnit\Framework\TestCase;
 
 class MockCreator extends TestCase

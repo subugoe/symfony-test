@@ -6,7 +6,7 @@
  * Time: 11:22
  */
 
-namespace App\ViewModel;
+namespace App\BusinessLogic\ViewModel;
 
 
 class ViewItem

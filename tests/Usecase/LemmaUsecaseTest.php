@@ -4,9 +4,9 @@
 namespace App\Tests\Usecase;
 
 use App\Tests\Mock\MockCreator;
-use App\Usecase\LemmaUsecase;
-use App\Model\Item;
-use App\Model\Reference;
+use App\BusinessLogic\Usecase\LemmaUsecase;
+use App\BusinessLogic\Model\Item;
+use App\BusinessLogic\Model\Reference;
 use Exception;
 use PHPUnit\Framework\TestCase;
 

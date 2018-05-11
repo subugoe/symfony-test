@@ -6,7 +6,7 @@
  * Time: 11:52
  */
 
-namespace App\Model;
+namespace App\BusinessLogic\Model;
 
 
 class Item

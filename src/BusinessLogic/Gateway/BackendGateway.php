@@ -6,7 +6,7 @@
  * Time: 11:31
  */
 
-namespace App\Gateway;
+namespace App\BusinessLogic\Gateway;
 
 
 interface BackendGateway

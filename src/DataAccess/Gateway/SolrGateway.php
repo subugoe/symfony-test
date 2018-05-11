@@ -6,12 +6,13 @@
  * Time: 11:32
  */
 
-namespace App\Gateway;
+namespace App\DataAccess\Gateway;
 
 
-use App\Model\Item;
-use App\Model\Reference;
+use App\BusinessLogic\Model\Item;
+use App\BusinessLogic\Model\Reference;
 use Solarium\Client;
+use App\BusinessLogic\Gateway\BackendGateway;
 
 class SolrGateway implements BackendGateway
 {

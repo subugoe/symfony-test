@@ -10,7 +10,7 @@ namespace App\Controller;
 
 
 use App\CustomContext;
-use App\Usecase\LemmaUsecase;
+use App\BusinessLogic\Usecase\LemmaUsecase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;

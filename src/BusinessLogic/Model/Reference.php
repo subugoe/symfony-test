@@ -6,7 +6,7 @@
  * Time: 13:25
  */
 
-namespace App\Model;
+namespace App\BusinessLogic\Model;
 
 
 class Reference

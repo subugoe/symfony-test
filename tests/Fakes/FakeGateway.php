@@ -9,9 +9,9 @@
 namespace App\Tests\Fakes;
 
 
-use App\Gateway\BackendGateway;
-use App\Model\Item;
-use App\Model\Reference;
+use App\BusinessLogic\Gateway\BackendGateway;
+use App\BusinessLogic\Model\Item;
+use App\BusinessLogic\Model\Reference;
 
 class FakeGateway implements BackendGateway
 {
